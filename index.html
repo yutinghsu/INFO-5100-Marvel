@@ -98,9 +98,8 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
             <img src="img/marvel-logo.png" style="width:75%; padding:50px;">
         </div>
         <div style="position: relative; float:left; width:40%; margin-top:30px; padding-right:25px;">
-            <p style="color:white; font-size:20px; line-height:30px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dignissim ut massa nec pellentesque. Sed
-        venenatis, mauris sed lacinia pellentesque, eros tellus scelerisque mauris, eget scelerisque velit urna in quam.
-        Nulla facilisi. Aenean dignissim venenatis posuere. Nam lobortis augue in sem tristique lobortis. Duis rhoncus augue eget enim volutpat, at convallis est accumsan. Sed molestie urna felis, finibus egestas nisl porta eu. Nam vitae varius elit, eget ornare risus. Nulla placerat metus vitae mollis tristique.</p>
+
+        <p style="color:white; font-size:20px; line-height:30px;">Started in 1938 as Timely Publications, Marvel Comics have come a long way. Through their use of non traditional hero archetypes their characters and stories have been told for decades and continue to bring in big money through their movie adaptations.</p>
         </div>
     </div>
 
@@ -273,7 +272,7 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
             return array;
         };
 
-        //Creating images of characters both in first list and in the map area bio
+        //Creating images of characters in first list
         for (var i = 0; i < charList.length; i++) {
             character = charList[i];
 
@@ -299,7 +298,7 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
 
         function populateCharacters(charList) {
 
-            //Creating images of characters both in first list and in the map area bio
+            //Creating images of characters map area bio
             for (var i = 0; i < charList.length; i++) {
                 var hero = d3.select("#heroList").append("g").attr("id", charList[i].shortName).classed("dim", true);
 
@@ -425,6 +424,7 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
                 
             }
 
+
             d3.selectAll("circle.birthplace").remove();
             if(curYear in charaByYears) {
                 charaByYears[curYear].forEach(function(char_id){
@@ -478,6 +478,7 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
                 });
             }
         };
+
         mapSlide.oninput = function(){
             updateMap(mapSlide.value);
         };
