@@ -385,7 +385,6 @@
             if(mapSlide.value in charaByYears) {
                 charaByYears[curYear].forEach(function(char_id){
                     var char = characters[char_id];
-                    console.log(char);
                     var coord = projection([char.Coordinates[1], char.Coordinates[0]]);
                     def = d3.select("#map defs #"+char_id+"-img");
                     if (def.length > 0) {
