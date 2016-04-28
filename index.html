@@ -71,9 +71,7 @@
             <img src="img/marvel-logo.png" style="width:75%; padding:50px;">
         </div>
         <div style="position: relative; float:left; width:40%; margin-top:30px; padding-right:25px;">
-        <p style="color:white; font-size:20px; line-height:30px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dignissim ut massa nec pellentesque. Sed
-    venenatis, mauris sed lacinia pellentesque, eros tellus scelerisque mauris, eget scelerisque velit urna in quam.
-    Nulla facilisi. Aenean dignissim venenatis posuere. Nam lobortis augue in sem tristique lobortis. Duis rhoncus augue eget enim volutpat, at convallis est accumsan. Sed molestie urna felis, finibus egestas nisl porta eu. Nam vitae varius elit, eget ornare risus. Nulla placerat metus vitae mollis tristique.</p>
+        <p style="color:white; font-size:20px; line-height:30px;">Started in 1938 as Timely Publications, Marvel Comics have come a long way. Through their use of non traditional hero archetypes their characters and stories have been told for decades and continue to bring in big money through their movie adaptations.</p>
         </div>
     </div>
 
@@ -243,7 +241,7 @@
             return array;
         };
 
-        //Creating images of characters both in first list and in the map area bio
+        //Creating images of characters in first list
         for (var i = 0; i < charList.length; i++) {
             character = charList[i];
 
@@ -265,16 +263,11 @@
             var hero = d3.select("#heroList").append("g").attr("id", charList[i].shortName).classed("dim", true);
             var charBio = d3.select("#charList").append("g").attr("id", charList[i].shortName + "_bio").classed("hidden", true);
 
-//            //Create dropdown list of all characters
-//            var opt = document.createElement('option');
-//            opt.value = charList[i].shortName;
-//            opt.innerHTML = charList[i].Name;
-//            selectList.appendChild(opt);
         };
 
         function populateCharacters(charList) {
 
-            //Creating images of characters both in first list and in the map area bio
+            //Creating images of characters map area bio
             for (var i = 0; i < charList.length; i++) {
                 var hero = d3.select("#heroList").append("g").attr("id", charList[i].shortName).classed("dim", true);
 
@@ -295,8 +288,6 @@
                         .attr("height", 60)
                         .attr("x", coordX)
                         .attr("y", coordY)
-//                        .append("svg:title")
-//                        .text(function(d) { return  charList[i].Name + " first appeared in " + charList[i].firstIssue; })
                         .on("mouseover", function (d) {
                             d3.select(this).transition()
                                     .attr("width", 70)
@@ -394,6 +385,7 @@
             if(mapSlide.value in charaByYears) {
                 charaByYears[curYear].forEach(function(char_id){
                     var char = characters[char_id];
+                    console.log(char);
                     var coord = projection([char.Coordinates[1], char.Coordinates[0]]);
                     def = d3.select("#map defs #"+char_id+"-img");
                     if (def.length > 0) {
@@ -425,7 +417,7 @@
                               });
                     $("#"+char_id+"-birthplace").popover({
                         content: '<table>'
-                            +'<tr><td>Name </td><td>'+characterInfo[char_id]['name']+'</td></tr>'
+                            +'<tr><td>Name </td><td>'+characterInfo['name']+'</td></tr>'
                             +'<tr><td>Gender </td><td>'+characterInfo[char_id]['gender']+'</td></tr>'
                             +'<tr><td>Height </td><td>'+characterInfo[char_id]['height']+'</td></tr>'
                             +'<tr><td>Weight </td><td>'+characterInfo[char_id]['weight']+'</td></tr>'
@@ -442,32 +434,6 @@
                 });
             }
         };
-
-//        d3.select("#characterSelect").on("change", function () {
-//            var name = this.value;
-//            for (var i = 0; i < charList.length; i++) {
-//                if (name == charList[i].shortName) {
-//                    d3.select("#" + data[i].shortName + "_bio")
-//                            .classed("hidden", false);
-//                    d3.select("#" + data[i].shortName + "_line")
-//                            .classed("hidden", false);
-//                    d3.select("#" + data[i].shortName + "_circle")
-//                            .classed("dim", false);
-//
-//                }
-//                else {
-//                    d3.select("#" + data[i].shortName + "_bio")
-//                            .classed("hidden", true);
-//                    d3.select("#" + data[i].shortName + "_line")
-//                            .classed("hidden", true);
-//                    d3.select("#" + data[i].shortName + "_circle")
-//                            .classed("dim", true);
-//
-//                }
-//            }
-//            ;
-//
-//        });
 
 
         //Creates a filter for the character list based on checkboxes
