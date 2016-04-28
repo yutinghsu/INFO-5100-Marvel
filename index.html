@@ -7,11 +7,11 @@
     <script src="http://d3js.org/topojson.v1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/d3.slider.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/styles.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="css/d3.slider.css" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Boogaloo' rel='stylesheet' type='text/css'>
     
     <title>INFO 5100 Project 2 </title>
     <style>
@@ -39,7 +39,8 @@
 
         html {font-family: 'Oswald', sans-serif; font-weight:100; background: #f03138;}
         .wrapper {background: #f03138;}
-        /*body {background-image: url(img/background-color.png); background-size: cover; background-position: fixed; padding:0; margin:0;}*/
+        body { font-family: Boogaloo; }
+        body h1 { font-family: Bangers; }
         .header { height:350px; /*width:1280px; margin:50px;*/ margin-bottom:0px;border-bottom:1px dotted white;}
         .hidden {display:none;}
         #controls {/*width:250px;*/ position:relative; text-align:left; float:left; margin-left: 10px;}
@@ -56,12 +57,39 @@
             float: left;}
         td {padding:5px;}
 
+        .map_section { background-color: #c1b198; }
+
+        /*body { font-family: Open Sans; width: 1280px;}*/
+svg { border: solid black 0px; }
+.axis path { fill: none; stroke: black; }
+.axis line { stroke: black; }
+.axis text { font-size: 12pt; }
+.tooltip {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  pointer-events: none;
+  color: black;
+  background-color: rgba(255,255,255,0.8);
+  padding: 10px;
+
+}
+.label { font-weight: bold; }
+circle { stroke-width:3px; stroke-opacity: 0.3; }
+#gross svg {float: left;}
+.poster img {
+    width: 150px;
+    float: left;
+    padding: 0px 15px 15px 0px;
+}
+#leading {position: relative; bottom: 50px; left:350px;}
+#teams {margin-top: 50px;}
+#teams img {width: 30px; height: 30px;}
+#teams img:hover {opacity:0.5;}
+
     </style>
 </head>
 <body>
-	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-	<script src="http://d3js.org/topojson.v1.min.js"></script>
-</head>
 
 
 <div class="wrapper container-fluid">
@@ -70,94 +98,95 @@
             <img src="img/marvel-logo.png" style="width:75%; padding:50px;">
         </div>
         <div style="position: relative; float:left; width:40%; margin-top:30px; padding-right:25px;">
-        <p style="color:white; font-size:20px; line-height:30px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dignissim ut massa nec pellentesque. Sed
-    venenatis, mauris sed lacinia pellentesque, eros tellus scelerisque mauris, eget scelerisque velit urna in quam.
-    Nulla facilisi. Aenean dignissim venenatis posuere. Nam lobortis augue in sem tristique lobortis. Duis rhoncus augue eget enim volutpat, at convallis est accumsan. Sed molestie urna felis, finibus egestas nisl porta eu. Nam vitae varius elit, eget ornare risus. Nulla placerat metus vitae mollis tristique.</p>
+            <p style="color:white; font-size:20px; line-height:30px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dignissim ut massa nec pellentesque. Sed
+        venenatis, mauris sed lacinia pellentesque, eros tellus scelerisque mauris, eget scelerisque velit urna in quam.
+        Nulla facilisi. Aenean dignissim venenatis posuere. Nam lobortis augue in sem tristique lobortis. Duis rhoncus augue eget enim volutpat, at convallis est accumsan. Sed molestie urna felis, finibus egestas nisl porta eu. Nam vitae varius elit, eget ornare risus. Nulla placerat metus vitae mollis tristique.</p>
         </div>
     </div>
 
-    <div class="">
-        <div class="row" style="min-height:100px;/* margin-left:100px;*/ text-align:left !important;">
-            <p style="width:900px; margin:0 auto;">
-                <span id="year">1938</span>
-                <span id="fact"></span>
-            </p>
-        </div>
-        <div class="row" style="margin-top:25px; /*margin-left:100px; width:1280px;*/">
-            <span style="color:white; height: 50px; margin-top: 10px; text-align: right;" class="col-xs-1">1938 &nbsp;</span>
-            <span class="col-xs-10">
-                <input id="slider" type="range" min="1938" max="2016" value="1938"/>
-            </span>
-            <span style="color:white; height: 50px; margin-top: 10px; " class="col-xs-1" >&nbsp;2016</span>
-            <output></output>
-            <div style="text-align:center;">
-                <h3 style="color:white; letter-spacing: 2px; margin-bottom:0px; margin-top:0px;font-weight:100; font-style: italic; font-size:16px; padding-top:0px;" >
-                        Slide to see some of the Marvel characters through the years</h3>
-            </div>
-            </div>
-        <div class="row" style="border-bottom:1px dotted white; padding-bottom:25px;/*margin-left:100px;*/">
-            <div id="controls" class=" col-xs-2">
-            <br>
-                <h5 style="margin-bottom:0px; padding:10px;">Sort characters:</h5>
-                <select id="sortFilter" style="position:relative; left:10px;">
-                    <option value="Name">Alphabetically</option>
-                    <option value="originYear">Chronologically</option>
-                    <option value="random">Random</option>
-                </select>
 
-                <h5 style="margin-bottom:0px; padding:10px;">Filter by Gender</h5>
-                <ul style="list-style:none; margin-top:0px; margin-left:10px; padding-left:10px;padding-top:0px;">
-                    <li>
-                        <input type="checkbox" class="filter" checked="true" name="male" id="male" value="Male"></input>
-                        <lablel for="male">Male</lablel>
-                    </li>
-                    <li>
-                        <input type="checkbox" class="filter" checked="true" name="female" id="female" value="Female"></input>
-                        <lablel for="female">Female</lablel>
-                    </li>
-                </ul>
-
-                <h5 style="margin-bottom:0px; padding:10px;">Filter by Alignment</h5>
-                <ul style="list-style:none; margin-top:0px; margin-left:10px; padding-left:10px;padding-top:0px;">
-                    <li>
-                        <input type="checkbox" class="filter" checked="true" name="Hero" id="Hero" value="Hero"></input>
-                        <lablel for="Hero">Hero</lablel>
-                    </li>
-                    <li>
-                        <input type="checkbox" class="filter" checked="true" name="Villain" id="Villain" value="Villain"></input>
-                        <lablel for="Villain">Villain</lablel>
-                    </li>
-
-                </ul>
-            </div>
-            <div class="heros col-xs-8">
-                <div id="heroPhotos"></div>
-            </div>
-        </div>
-
-        <div class="row" style="text-align:center; background-color: black;">
-            <h1 style="color:#0689bb; margin-top:25px; letter-spacing: 2px; margin-bottom:0px; /*margin-left:100px;*/margin-top:20px;font-weight:100; font-size:30px; padding-top:0px;">
-                World Events and character's 'birthplace'
-            </h1>
-
-            <div id="map" style="display:inline; position:relative;"></div>
+    
+    <div class="row" style="min-height:100px;/* margin-left:100px;*/ text-align:left !important;">
+        <p style="width:900px; margin:0 auto;">
+            <span id="year">1938</span>
+            <span id="fact"></span>
+        </p>
+    </div>
+    <div class="row" style="margin-top:25px; /*margin-left:100px; width:1280px;*/">
+        <span style="color:white; height: 50px; margin-top: 10px; text-align: right;" class="col-xs-1">1938 &nbsp;</span>
+        <span class="col-xs-10">
+            <input id="slider" type="range" min="1938" max="2016" value="1938"/>
+        </span>
+        <span style="color:white; height: 50px; margin-top: 10px; " class="col-xs-1" >&nbsp;2016</span>
         
-            <span style="color:white;height: 30px; margin-top: 10px; text-align: right;" class="col-xs-1">1938</span>
-            <span class="col-xs-10">
-            <input id="sliderMap" type="range" min="1938" max="2016" value="1938"/>
-            </span>
-            <span style="color:white;t: 30px; margin-top: 10px;text-align: left;" class="col-xs-1">2016</span>
-        </div>
-        <div style="background-color: black;" class="row ">
-            <span style="color:#f03138;height: 30px; margin-top: 10px; text-align: right;" class="col-xs-1">Real World Events</span>
-            <span id="eventtimeline" class="col-xs-10"></span>
-        </div>
-        <div style="text-align:center; background-color: black;" class="row">
+        <div style="text-align:center;">
             <h3 style="color:white; letter-spacing: 2px; margin-bottom:0px; margin-top:0px;font-weight:100; font-style: italic; font-size:16px; padding-top:0px;" >
-                Slide through the time-line to see when a character was created and their 'birthplace'</h3>
+                    Slide to see some of the Marvel characters through the years</h3>
         </div>
+    </div>
+    <div class="row" style="border-bottom:1px dotted white; padding-bottom:25px;/*margin-left:100px;*/">
+        <div id="controls" class="col-xs-2">
+        <br>
+            <h5 style="margin-bottom:0px; padding:10px;">Sort characters:</h5>
+            <select id="sortFilter" style="position:relative; left:10px;">
+                <option value="Name">Alphabetically</option>
+                <option value="originYear">Chronologically</option>
+                <option value="random">Random</option>
+            </select>
 
-</div>
+            <h5 style="margin-bottom:0px; padding:10px;">Filter by Gender</h5>
+            <ul style="list-style:none; margin-top:0px; margin-left:10px; padding-left:10px;padding-top:0px;">
+                <li>
+                    <input type="checkbox" class="filter" checked="true" name="male" id="male" value="Male"></input>
+                    <lablel for="male">Male</lablel>
+                </li>
+                <li>
+                    <input type="checkbox" class="filter" checked="true" name="female" id="female" value="Female"></input>
+                    <lablel for="female">Female</lablel>
+                </li>
+            </ul>
+
+            <h5 style="margin-bottom:0px; padding:10px;">Filter by Alignment</h5>
+            <ul style="list-style:none; margin-top:0px; margin-left:10px; padding-left:10px;padding-top:0px;">
+                <li>
+                    <input type="checkbox" class="filter" checked="true" name="Hero" id="Hero" value="Hero"></input>
+                    <lablel for="Hero">Hero</lablel>
+                </li>
+                <li>
+                    <input type="checkbox" class="filter" checked="true" name="Villain" id="Villain" value="Villain"></input>
+                    <lablel for="Villain">Villain</lablel>
+                </li>
+
+            </ul>
+        </div>
+        <div class="heros col-xs-8">
+            <div id="heroPhotos"></div>
+        </div>
+    </div>
+
+    <div class="row map_section" style="text-align:center;">
+        <h1 style="color:white; margin-top:25px; letter-spacing: 2px; margin-bottom:0px; /*margin-left:100px;*/margin-top:20px;font-weight:100; font-size:30px; padding-top:0px; ">
+            Character's Birth 
+        </h1>
+        <h3 style="color:white; letter-spacing: 2px; margin-bottom:0px; margin-top:0px;font-weight:100; font-style: italic; font-size:16px; padding-top:0px;" >
+            Slide through the time-line to see when a character was created and their 'birthplace'. <br />( ● means real events)</h3>
+
+        <div id="map" style="display:inline; position:relative;"></div>
+    
+        <span style="color:white;height: 30px; margin-top: 10px; text-align: right;" class="col-xs-2">1938</span>
+        <span class="col-xs-8">
+        <input id="sliderMap" type="range" min="1938" max="2016" value="1938"/>
+        </span>
+        <span style="color:white;t: 30px; margin-top: 10px;text-align: left;" class="col-xs-2">2016</span>
+    </div>
+    <div class="row map_section">
+        <span style="color:#225e90;height: 30px; margin-top: 10px; text-align: right;" class="col-xs-2">Real World Events</span>
+        <span id="eventtimeline" class="col-xs-8"></span>
+    </div>
+    <div style="text-align:center;" class="row map_section">
+        
+    </div>
+
 
 <script>
     var characters = {};
@@ -390,8 +419,8 @@
                     .attr("cx", coord[0])
                     .attr("cy", coord[1])
                     .attr("r", 5)
-                    .style("fill", "#f03138")
-                    .style('opacity', .5);
+                    .style("fill", "white")
+                    .style('opacity', .8);
                 });
                 
             }
@@ -431,7 +460,8 @@
                               });
                     console.log(char_id);
                     $("#"+char_id+"-birthplace").popover({
-                        content: '<table>'
+                        content: '<img src="'+characterInfo[char_id].img_src+'" style="width: 100px;">' 
+                            +'<table>'
                             +'<tr><td>Name </td><td>'+characterInfo[char_id].name+'</td></tr>'
                             +'<tr><td>Gender </td><td>'+characterInfo[char_id].gender+'</td></tr>'
                             +'<tr><td>Height </td><td>'+characterInfo[char_id].height+'</td></tr>'
@@ -514,31 +544,7 @@
             }
         };
 
-        d3.json("json/characters_info.json", function (error,
-            charInfo){
-            if (error) throw error;
-            charInfo.forEach(function(info){
-                characterInfo[info.shortname] = info;
-            });
-
-            //Starting Map Section
-            d3.json("world-50m.json", function (error, world) {
-                if (error) throw error;
-
-                map.insert("path", ".graticule")
-                        .datum(topojson.feature(world, world.objects.land))
-                        .attr("d", path)
-                        .style("fill", "white");
-
-                map.insert("path", ".graticule")
-                        .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
-                        .attr("class", "boundary")
-                        .attr("d", path)
-                        .style("stroke", "#ccc");
-            });
-        });
-
-        var sliderwidth = d3.select("#sliderMap").node().getBoundingClientRect().width;
+                var sliderwidth = d3.select("#sliderMap").node().getBoundingClientRect().width;
         var time_scale = d3.scale.linear().domain([1938, 2016]).range([ 0, sliderwidth]);
 
         events = {  
@@ -550,7 +556,7 @@
                 "1944": {"places": [[41.449596, 12.619725],[37.981835, -80.423567],[48.879870, 0.171253],[53.709807, 27.953389],[48.856614, 2.352222],[43.710173, 7.261953],[12.879721, 121.774017],[50.503887, 4.469936]], "eventname": "WORLD WAR II","img_src":"http://vignette3.wikia.nocookie.net/marveldatabase/images/9/9d/World_War_II_001.jpg/revision/latest/scale-to-width-down/200?cb=20090825012758"},
                 "1945": {"places": [[50.573280, 7.238553],[52.520007, 13.404954],[45.815011, 15.981919],[47.516231, 14.550072],[41.871940, 12.56738],[26.212401, 127.680932],[34.385203, 132.455293],[19.445411, -99.089734]], "eventname": "WORLD WAR II","img_src":"http://vignette3.wikia.nocookie.net/marveldatabase/images/9/9d/World_War_II_001.jpg/revision/latest/scale-to-width-down/200?cb=20090825012758"},
                 "1960": {"places":[[31.596640, 31.107178], [37.090240, -95.712891]], "eventname": "The Space Race", "img_src":"http://x.annihil.us/u/prod/marvel/i/mg/6/20/519b7424af23c/portrait_incredible.jpg"},
-                "1971": {"places": [[37.090240, -95.712891]], "eventname":"Drug Abuse","img_src": "http://i.annihil.us/u/prod/marvel/i/mg/e/40/4bc33acb2b5e0/portrait_incredible.jpg"},
+                "1971": {"places": [[40.7891, -73.1350]], "eventname":"Drug Abuse","img_src": "http://i.annihil.us/u/prod/marvel/i/mg/e/40/4bc33acb2b5e0/portrait_incredible.jpg"},
                 "2001": {"places":[[40.783060, -73.971249],[38.881621, -77.090981]], "eventname":"9/11", "img_src":"http://cdn.bleedingcool.net/wp-content/uploads/2013/06/image80.jpg?f6a06b"}
             };
 
@@ -569,7 +575,7 @@
             .attr("width",20)
             .attr("height", 10)
             .attr("x", time_scale(year)-10 )
-            .style("fill", "#f03138")
+            .style("fill", "#225e90")
             .attr("rx", 3)
             .attr("ry", 3);
 
@@ -578,16 +584,469 @@
                     .append("text").text(eventname)
                     .attr("x", time_scale(year)-10)
                     .attr("y", 30)
-                    .style("fill", "#f03138");
+                    .style("fill", "#225e90");
             } 
-            // eventssvg.call(d3.slider().axis(true).min(2000).max(2100).step(5));
 
         }
+
+        d3.json("json/characters_info.json", function (error,
+            charInfo){
+            if (error) throw error;
+            charInfo.forEach(function(info){
+                characterInfo[info.shortname] = info;
+            });
+
+            //Starting Map Section
+            d3.json("json/world-50m.json", function (error, world) {
+                if (error) throw error;
+
+                map.insert("path", ".graticule")
+                        .datum(topojson.feature(world, world.objects.land))
+                        .attr("d", path)
+                        .style("fill", "#225e90");
+
+                map.insert("path", ".graticule")
+                        .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+                        .attr("class", "boundary")
+                        .attr("d", path)
+                        .style("stroke", "#c1b198")
+                        .style("stroke-width", "2");
+            });
+
+            updateMap(sliderMap.value);
+        });
+
+
+
 
 
     });
 
     </script>
+<div id="movie_section" style="background-color: white;" class="row">
+    <h1 style="text-align: center; color: #316a95;">Who is the most popular superhero in cinematic universe?</h1>
+<div id="gross"></div>
+<div id="side">
+  <div id="teams">
+    <div id="avengers" onclick="updateteammember(avengers)"> <img src="team/avengers.png" alt = "team logo1"/> </div>
+    <div id="avengers" onclick="updateteammember(spider)"><img src="team/spider.png" alt = "team logo2"/> </div>
+    <div id="fantastic4" onclick="updateteammember(fantastic4)"><img src="team/fantastic4.png" alt = "team logo3"/></div>
+    <div id="shield" onclick="updateteammember(shield)"><img src="team/shield.png" alt = "team logo4"/></div>
+    <div id="xmen" onclick="updateteammember(xmen)"><img src="team/XMen.png" alt = "team logo5"/></div>
+    <div id="guardians" onclick="updateteammember(guardians)"><img src="team/guardians.jpg" alt = "team logo6"/></div>
+  </div>
+  <div id="memberlist"></div>
+</div>
+
+
+<script>
+
+var height = 800;
+var width = 1080;
+var padding = 140;
+
+var gross = d3.select("#gross").append("svg")
+   .attr("height", height).attr("width", width);
+var leading = d3.select("#gross").append("div").attr("id", "leading").attr("width", 200);
+// var side = d3.select("#side").append("svg")
+//    .attr("height", height).attr("width", 199);
+
+var screentimeData = {};
+
+var generateMovieID = function(moviename){
+  removeList = [': ', '(', ')'];
+  removeList.forEach(function(c){
+    moviename = moviename.replace(c,'');
+  });
+  console.log(moviename);
+  return moviename.toUpperCase().split(' ').join('_');
+};
+
+  var avengers = ["Captain America", "Tony Stark", "Thor", "Dr. Bruce Banner", "Natasha Romanoff", "Hawkeye"];
+  var shield = ["Nick Fury", "Phil Coulson", "Maria Hill", "Peggy Carter"];
+  var xmen = ["Professor Charles Xavier", "Erik Lehnsherr", "Raven Darkholme", "Jean Grey", "Dr. Henry 'Hank' McCoy", "Logan", "Wade Wilson"];
+  var fantastic4 = ["Mr. Fantastic", "Invisible Woman", "Human Torch", "Thing"];
+  var spider = ["Peter Parker"];
+  var guardians = ["Peter Quill", "Gamora", "Rocket Raccoon", "Drax the Destroyer", "Groot"];
+
+var updateteammember = function (teamname){
+    var list = "";
+    teamname.forEach(function(character){
+    list = list + '<a class="movieCharacter">' + character +"</a><br>";
+    });
+    document.getElementById("memberlist").innerHTML = "<b>Team Members:</b><br /> " + list;
+    d3.selectAll('.movieCharacter')
+      .on("mouseover", function(){
+        var movieList = screentimeData[this.text];
+        console.log(movieList);
+        //d3.selectAll(".dot").style("fill-opacity", 0.1).style("stroke-width",0);
+        d3.selectAll(".dot").style("fill-opacity", 0).style("stroke-width",0);
+        //d3.select(this).style("fill-opacity", 0.8);
+        movieList.forEach(function(movie){
+          var getscreentime = getTime(movie.screentime);
+          var highlight = d3.selectAll("circle."+movie.movieID);
+          highlight
+          //.style("fill-opacity", screentimeScale(Math.log(getTime(movie.screentime))))
+            .style("fill-opacity", function(d){
+                  if (getscreentime<=1){return 0;}
+                  else if (getscreentime>1 && getscreentime<10){return 0.2;}
+                  else if (getscreentime>=10 && getscreentime<30){return 0.4;}
+                  else if (getscreentime>=30 && getscreentime<60){return 0.6;}
+                  else if (getscreentime>=60){return 0.8;};
+                })
+            .style("stroke-opacity", 1)
+            //.style("stroke-opacity", function(d){
+                  //if (getscreentime<=1){return 0.2;}
+                  //else if (getscreentime>1 && getscreentime<10){return 0.4;}
+                  //else if (getscreentime>=10 && getscreentime<30){return 0.6;}
+                  //else if (getscreentime>=30 && getscreentime<60){return 0.8;}
+                  //else if (getscreentime>=60){return 1;};
+                //})
+            .style("stroke-width", 3)
+            .append("text")
+            .text("movie.movie")
+            .attr("class", "label");
+            
+            if (getscreentime == 0) {
+                getscreentime = "N/A";
+            }
+            else {
+               getscreentime += " min(s)"; 
+            }
+
+            var highlight_position = highlight.node().getBoundingClientRect();
+            gross.append("g").attr("class","movie_info")
+                .append("text")
+                .attr("x", highlight_position.right)
+                .attr("y", highlight_position.top)
+                .append("tspan").text(movie.movie)
+                .attr("x", highlight_position.right)
+                .attr("dy", 15)
+                .append("tspan").text("Screen Time: "+getscreentime)
+                .attr("x", highlight_position.right)
+                .attr("dy", 15);
+
+        });
+      })
+      .on("mouseout", function(){
+        d3.selectAll(".movie_info").remove();
+        d3.selectAll(".dot")
+            //.text(function(d){return d.Title;})
+            .style("stroke-opacity", function(d){
+              if (d.Year<2016){return 0.8;};
+              if (d.Year>=2016){return 0;};
+            })
+            .style("stroke-width",function(d){
+              if (d.Year<2016){return 3;};
+              if (d.Year>=2016){return 0;};
+            })
+            .style("fill-opacity", function(d){
+              if (d.Year<2016){return 0.5;};
+              if (d.Year>=2016){return 0.2;};
+            });
+      });
+};
+
+var cValue = function(d) { return d.Studio;};
+var color = d3.scale.category10();
+var tooltip = d3.select("#gross").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+var poster = gross.selectAll("image")
+            .data([0])
+            .enter()
+            .append("svg:image")
+            .attr("class","poster")
+            .attr("x", padding + 20)
+            .attr("y", height - padding - 350)
+            .attr("width", 150)
+            .attr("height", 250);
+var leading = gross.append("text")
+            .attr("x", padding+170)
+            .attr("y", height - padding - 350)
+            .attr("width", 150)
+            .attr("height", 250)
+            .attr("id", "castlist");
+
+var formatMillion = d3.format(".2s");
+var formatYear = d3.format(".0f");
+
+d3.csv("movies.csv", function(error, data) {
+  if(error) { console.log(error); }
+
+  var xScale = d3.scale.linear()
+  //.domain([d3.min(data, function (d) { return d.Year; }) , d3.max(data, function (d) { return d.Year; }) ])
+  .domain([1985,2020])
+  .range([padding, width - 0.5*padding]);
+  var xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(function(d) { return formatYear(d)});
+
+  var yScale = d3.scale.linear()
+  //.domain([0, d3.max(data, function (d) { return d["Adjusted Gross"]; }) ])
+  .domain([0,700000000])
+  .range([height - padding, padding/2]);
+  var yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(function(d) { return formatMillion(d)});
+
+  // change string (from CSV) into number format
+  data.forEach(function(d) {
+    d.Year = +d.Year;
+    d["Adjusted Gross"] = +d["Adjusted Gross"];
+    d.Theaters = +d.Theaters;
+    d.Opening = +d.Opening;
+    d["Unadjusted Gross"] = +d["Unadjusted Gross"];
+  });
+
+  // x-axis
+  gross.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(0," + (height - padding) + ")")
+      .call(xAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("x", (width - padding))
+      .attr("y", -6)
+      .style("text-anchor", "end")
+      .text("Year");
+
+  // y-axis
+  gross.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate("+ padding + ", 0)")
+      .call(yAxis)
+    .append("text")
+      .attr("class", "label")
+      .attr("y", 0.3*padding)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Adjusted Gross ($)");
+
+  //var yAxisOptions = ["Adjusted Gross", "Unadjusted Gross", "Opening", "Theaters"];
+
+  var rScale = d3.scale.linear()
+  .domain([0, d3.max(data, function (d) { return (d.Opening * (d["Adjusted Gross"]/d["Unadjusted Gross"])); }) ])
+  .range([4,40]);
+
+  // draw dots
+  var dots = gross.selectAll(".dot")
+                  .data(data)
+                .enter().append("circle")
+                  .attr("id", function(d) { return "circle"+d.Row; })
+                  .text(function(d) { return d.Title; })
+                  .attr("class", function(d) { return "dot "+ d.Studio +" "+ generateMovieID(d.Title) ; })
+                  .attr("r", function(d) { return rScale(d.Opening * (d["Adjusted Gross"]/d["Unadjusted Gross"]));})
+                  .attr("cx", function(d) { return xScale(d.Year);})
+                  .attr("cy", function(d) { return yScale(d["Adjusted Gross"]);})
+                  .style("stroke", function(d) { return color(cValue(d));})
+                  .style("fill", function(d) { return color(cValue(d));})
+                  .style("stroke-opacity", function(d){
+                    if (d.Year<2016){return 0.8;};
+                    if (d.Year>=2016){return 0;};
+                  })
+                  .style("fill-opacity", function(d){
+                    if (d.Year<2016){return 0.5;};
+                    if (d.Year>=2016){return 0.2;};
+                  });
+
+
+    function change(d){
+      d3.json("json/movie_characters.json", function (error, data){
+        if(error) { console.log(error); };
+        leading.selectAll("tspan").remove();
+        var textX = padding+180;
+        if(typeof data[d] !== "undefined")
+          {
+            leading.append("tspan")
+                .text("Leading Characters:")
+                .attr('x', textX)
+                .attr('dy', 15)
+                .attr('font-weight','bold');
+            var list = data[d];
+            for (i=0 ;i<list.length; i++) {
+              leading.append("tspan")
+                .text(list[i]).attr('x', textX)
+                .attr('dy', 15);
+            }
+          }
+      });
+    };
+
+      //highlight selected cirle
+      dots.on("mouseover", function(d) {
+            var revenue = formatMillion(d["Adjusted Gross"]);
+            var opening = formatMillion(d.Opening);
+            var unadjrevenue = formatMillion(d["Unadjusted Gross"]);
+            tooltip.transition()
+                 .duration(200)
+                 .style("opacity", .95);
+
+            if (d.Year<2016){
+              tooltip.html("<span class=\"label\">"+d.Title+"</span><br />("+d.Year +")" + "<br />Opening: $" + opening + "<br />Unadj. Gross: $" + unadjrevenue + "<br />Adj. Gross: $" + revenue + "<br /> Theaters: " + d.Theaters )
+              //tooltip.html(d.Title + "<br/> (" + xValue(d) + ", " + yValue(d) + ")")
+                   .style("left", (d3.event.pageX + 5) + "px")
+                   .style("top", (d3.event.pageY - 28) + "px");
+            }
+            if (d.Year>=2016){
+              tooltip.html("<span class=\"label\">"+d.Title+"</span><br />("+d.Year +")" + "<br />COMING SOON! <br />Gross projected based on last movie of same/similar series.")
+                   .style("left", (d3.event.pageX + 5) + "px")
+                   .style("top", (d3.event.pageY - 28) + "px");
+
+            }
+            //d3.selectAll(".dot").style("fill-opacity", 0.2).style("stroke-width",0);
+            //d3.select(this).style("fill-opacity", 0.8);
+            //add poster box
+            if (d.Year <=2016){
+              poster.attr("xlink:href", "poster/"+d.Row+".jpg");
+            }
+
+            var uppercase = d.Title.toUpperCase();
+            //console.log(uppercase);
+            change(uppercase);
+        })
+        .on("mouseout", function(d) {
+            leading.selectAll("tspan").remove();
+            tooltip.transition()
+                 .duration(500)
+                 .style("opacity", 0);
+            d3.selectAll(".dot")
+                .style("stroke-opacity", function(d){
+                  if (d.Year<2016){return 0.8;};
+                  if (d.Year>=2016){return 0;};
+                })
+                .style("stroke-width", function(d){
+                  if (d.Year<2016){return 3;};
+                  if (d.Year>=2016){return 0;};
+                })
+                .style("fill-opacity", function(d){
+                  if (d.Year<2016){return 0.5;};
+                  if (d.Year>=2016){return 0.2;};
+                });
+            poster.attr("xlink:href", "");
+            document.getElementById("leading").innerHTML ="";
+        });
+
+  var gardians;
+
+  d3.json("json/screentime.json", function (error, data){
+      if(error) { console.log(error); };
+      var charlist = "";
+
+      data.forEach(function(d){
+        screentimeData[d.name] = [];
+        d.screentime.forEach(function(movieInfo){
+          screentimeData[d.name].push({
+            "movie": movieInfo.movie, "screentime": movieInfo.time,
+            "movieID": generateMovieID(movieInfo.movie)
+          });
+        });
+
+        if(d.screentime.length>1){
+          //console.log(d.name);
+          var char = d.name;
+          var charlist = charlist + char;
+          for(i=0;i<d.screentime.length;i++){
+            //console.log(d.screentime[i].movie);
+            var title = d.screentime[i].movie;
+            var time = d.screentime[i].time;
+            var timenum = getTime(time);
+          }
+          //console.log(d.screentime.length);
+        }
+      });
+
+    var screentimeScale = d3.scale.linear()
+      .domain([-1,2])
+      .range([0,1]);
+
+
+
+
+  });
+
+
+  // draw legend
+  var legend = gross.selectAll(".legend")
+      .data(color.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; })
+      .attr("id", function(d) { return d;});
+
+  // draw legend colored rectangles
+  legend.append("rect")
+      .attr("x", padding + 18)
+      .attr("y", padding)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("opacity", 1)
+      .style("fill", color);
+
+  // draw legend text
+  legend.append("text")
+      .attr("x", padding + 45)
+      .attr("y", padding + 8)
+      .attr("dy", ".35em")
+      .style("text-anchor", "start")
+      .text(function(d) { return d;});
+
+  legend.on("mouseover", function(d) {
+          d3.select(this).style("fill-opacity", 0.5);
+          d3.selectAll(".dot")
+              .style("stroke-opacity", function(d){
+                if (d.Year<2016){return 0.5;};
+                if (d.Year>=2016){return 0;};
+              })
+              .style("fill-opacity", function(d){
+                if (d.Year<2016){return 0.2;};
+                if (d.Year>=2016){return 0.1;};
+              })
+              .style("stroke-width",1);
+          var highlight = d3.selectAll("."+d);
+          highlight
+          .style("fill-opacity", 0.8)
+          .style("stroke-width",5)
+          .style("stroke-opacity",1);
+      })
+      .on("mouseout", function(d) {
+          d3.select(this).style("fill-opacity", 1);
+          d3.selectAll(".dot")
+              .style("stroke-opacity", function(d){
+                if (d.Year<2016){return 0.8;};
+                if (d.Year>=2016){return 0;};
+              })
+              .style("fill-opacity", function(d){
+                if (d.Year<2016){return 0.5;};
+                if (d.Year>=2016){return 0.2;};
+              })
+              .style("stroke-width", function(d){
+                if (d.Year<2016){return 3;};
+                if (d.Year>=2016){return 0;};
+              });
+      });
+
+});
+
+function getTime(str){
+  var min, sec;
+  var index = str.indexOf(":");
+  if (index == -1) { //only min
+    min = Number(str);
+    time = 60*min;
+  }
+  else if (index == 0){ //only seconds
+    sec= Number(str.substring(1));
+    time = sec;
+  }
+  else { //mm:ss
+    min = Number(str.substring(0,index));
+    sec = Number(str.substring(index+1));
+    time = min*60 + sec;
+  }
+  return time/60;
+}
+
+</script>
+
+</div>
+</div>
 
 </body>
 </html>
