@@ -1,0 +1,609 @@
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <!-- Load the d3 library. -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+    <title>INFO 5100 Project 2 </title>
+    <style>
+        table {
+            border:1px black;
+        }
+        svg {background: transparent;}
+        .graticule {
+            fill: none;
+            stroke: #000;
+            stroke-opacity: .3;
+            stroke-width: .5px;
+        }
+        .boundary {
+            fill: none;
+            stroke: #000;
+            stroke-width: .5px;
+        }
+        .land {fill: white;}
+        .dim {opacity: .25;}
+        image {position:relative; float:left; clear:both;}
+        #slider, #sliderMap { width:90%;}
+        .Hero, .Villain {fill:none;}
+        .borderStroke {stroke:white; fill:none;}
+        .Hero {stroke:white;}
+        .Villain {stroke: black;}
+
+
+
+        html {font-family: 'Oswald', sans-serif; font-weight:100; background: #f03138;}
+        .wrapper {background: #f03138;}
+        /*body {background-image: url(img/background-color.png); background-size: cover; background-position: fixed; padding:0; margin:0;}*/
+        .header { height:350px; width:1280px; margin:50px; margin-bottom:0px;border-bottom:1px dotted white;}
+        .hidden {display:none;}
+        #controls {width:250px; position:relative; text-align:left; float:left;}
+        .heros {width: 800px; position:relative; float:left; margin-left:25px;}
+        .row {width:1280px; clear:both; display:block; color:green; min-height:100px;min-height:50px;}
+        .row:before, .row:after {display:table; content: "";}
+        h5 {color:white; font-weight:100; font-size:18px; margin-top:5px;}
+        ul > li {color:white; font-weight:100; font-size:15px;}
+        ul > li > input {position:relative; top:-2px;}
+        #year {font-size:3em; width:100px; margin-top:25px; font-weight:400; border-right:1px dotted white; margin-right:15px; padding-right:15px;}
+        #fact {font-size:1.75em; max-width:750px; margin-top:25px;}
+        #year, #fact {color:white;
+            position: relative;
+            float: left;}
+        td {padding:5px;}
+
+    </style>
+</head>
+<body>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
+</head>
+
+
+<div class="wrapper">
+    <div class="header">
+        <div style="position: relative; float:left; width:50%;">
+            <img src="img/marvel-logo.png" style="width:75%; padding:50px;">
+        </div>
+        <div style="position: relative; float:left; width:40%; margin-top:30px; padding-right:25px;">
+        <p style="color:white; font-size:20px; line-height:30px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dignissim ut massa nec pellentesque. Sed
+    venenatis, mauris sed lacinia pellentesque, eros tellus scelerisque mauris, eget scelerisque velit urna in quam.
+    Nulla facilisi. Aenean dignissim venenatis posuere. Nam lobortis augue in sem tristique lobortis. Duis rhoncus augue eget enim volutpat, at convallis est accumsan. Sed molestie urna felis, finibus egestas nisl porta eu. Nam vitae varius elit, eget ornare risus. Nulla placerat metus vitae mollis tristique.</p>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="row" style="min-height:100px; margin-left:100px; text-align:left !important;">
+            <p style="width:900px; margin:0 auto;">
+                <span id="year">1938</span>
+                <span id="fact"></span>
+            </p>
+        </div>
+        <div class="row" style="margin-top:25px; margin-left:100px; width:1280px;">
+            <span style="color:white;">1938 &nbsp;</span>
+            <input id="slider" type="range" min="1938" max="2016" value="1938"/>
+            <span style="color:white;">&nbsp;2016</span>
+            <output></output>
+            <div style="text-align:center;">
+            <h3 style="color:white; letter-spacing: 2px; margin-bottom:0px; margin-top:0px;font-weight:100; font-style: italic; font-size:16px; padding-top:0px;" >
+                    Slide to see some of the Marvel characters through the years</h3>
+</div>
+            </div>
+        <div class="row" style="border-bottom:1px dotted white; padding-bottom:25px;margin-left:100px;">
+            <div id="controls">
+            <br>
+                <h5 style="margin-bottom:0px; padding:10px;">Sort characters:</h5>
+                <select id="sortFilter" style="position:relative; left:10px;">
+                    <option value="Name">Alphabetically</option>
+                    <option value="originYear">Chronologically</option>
+                    <option value="random">Random</option>
+                </select>
+
+                <h5 style="margin-bottom:0px; padding:10px;">Filter by Gender</h5>
+                <ul style="list-style:none; margin-top:0px; margin-left:10px; padding-left:10px;padding-top:0px;">
+                    <li>
+                        <input type="checkbox" class="filter" checked="true" name="male" id="male" value="Male"></input>
+                        <lablel for="male">Male</lablel>
+                    </li>
+                    <li>
+                        <input type="checkbox" class="filter" checked="true" name="female" id="female" value="Female"></input>
+                        <lablel for="female">Female</lablel>
+                    </li>
+                </ul>
+
+                <h5 style="margin-bottom:0px; padding:10px;">Filter by Alignment</h5>
+                <ul style="list-style:none; margin-top:0px; margin-left:10px; padding-left:10px;padding-top:0px;">
+                    <li>
+                        <input type="checkbox" class="filter" checked="true" name="Hero" id="Hero" value="Hero"></input>
+                        <lablel for="Hero">Hero</lablel>
+                    </li>
+                    <li>
+                        <input type="checkbox" class="filter" checked="true" name="Villain" id="Villain" value="Villain"></input>
+                        <lablel for="Villain">Villain</lablel>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="heros">
+                <div id="heroPhotos"></div>
+            </div>
+        </div>
+
+        <div class="row" style="text-align:center; margin-top:25px;">
+            <h1 style="color:white; margin-top:25px; letter-spacing: 2px; margin-bottom:0px; margin-left:100px;margin-top:0px;font-weight:100; font-size:30px; padding-top:0px;">
+                World Events and character's 'birthplace'
+            </h1>
+</div>
+        <div class="row">
+
+            <div id="map" style="display:inline; position:relative;"></div>
+            <div class="row" style="margin-top:25px; margin-left:100px; width:1280px;">
+                <span style="color:white;">1938 &nbsp;</span>
+                <input id="sliderMap" type="range" min="1938" max="2016" value="1938"/>
+                <span style="color:white;">&nbsp;2016</span>
+                <output></output>
+                <div style="text-align:center;">
+                <h3 style="color:white; letter-spacing: 2px; margin-bottom:0px; margin-top:0px;font-weight:100; font-style: italic; font-size:16px; padding-top:0px;" >
+                    Slide through the time-line to see when a character was created and their 'birthplace'</h3>
+</div>
+            </div>
+
+        </div>
+
+    </div>
+
+<script>
+    var characters = {};
+    var charaByYears = {};
+    var characterInfo = {};
+
+    // Pulling data from the data.json file here.
+    d3.json("json/data.json", function(error, data) {
+        if (error) {
+            console.log(error);
+        }
+
+        var filterYear = 1938;
+        var charList = data;
+        var width = 1100;
+
+        var projection = d3.geo.equirectangular()
+                .scale((width) / 2.5 / Math.PI)
+                .translate([width / 1.5, 240])
+                .precision(.1);
+
+        var path = d3.geo.path()
+                .projection(projection);
+
+        var svg = d3.select("#heroPhotos").append("svg")
+                .attr("id", "heroList")
+                .attr("width", width)
+                .attr("height", 450);
+
+        var map = d3.select("#map").append("svg")
+                .attr("id","map")
+                .attr("width",1280)
+                .attr("height",500);
+
+        var bioArea = d3.select("#heroBioPic").append("svg")
+                .attr("id","charList")
+                .attr("width",350)
+                .attr("height",300);
+
+        var defs = map.append("defs");
+
+        var activeFilters = [];
+        var coordX = 15;
+        var coordY = 15;
+        var counter = 0;
+        var sortFilter = document.getElementById("sortFilter");
+
+//        var selectList = document.getElementById("characterSelect");
+//        var option = document.createElement("option");
+
+
+        //Populate the characters based on initial category choice
+        populateCharacters(data);
+
+        //Found this sort on a stackoverflow question: http://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects/8175221#8175221
+        function sortByKey(array, key) {
+            return array.sort(function (a, b) {
+                var x = a[key];
+                var y = b[key];
+                return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            });
+
+        };
+
+
+        d3.select("#sortFilter").on("change", function () {
+            sortFilter = document.getElementById("sortFilter").value;
+            if (sortFilter == "random") {
+                updatePositions(shuffleArray(data))
+            }
+            else {
+                var updateChar = sortByKey(data, sortFilter);
+                updatePositions(updateChar);
+
+            }
+        });
+
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+            return array;
+        };
+
+        //Creating images of characters both in first list and in the map area bio
+        for (var i = 0; i < charList.length; i++) {
+            character = charList[i];
+
+            characters[character.shortName] = {
+                "shortName": character.shortName,
+                "Coordinates": character.Coordinates,
+                "originYear": character.originYear,
+                "Birthplace": character.Birthplace,
+                "img": character.img
+            };
+
+            if (character.originYear in charaByYears) {
+                charaByYears[character.originYear].push(character.shortName);
+            }
+            else {
+                charaByYears[character.originYear] = [character.shortName];
+            }
+
+            var hero = d3.select("#heroList").append("g").attr("id", charList[i].shortName).classed("dim", true);
+            var charBio = d3.select("#charList").append("g").attr("id", charList[i].shortName + "_bio").classed("hidden", true);
+
+//            //Create dropdown list of all characters
+//            var opt = document.createElement('option');
+//            opt.value = charList[i].shortName;
+//            opt.innerHTML = charList[i].Name;
+//            selectList.appendChild(opt);
+        };
+
+        function populateCharacters(charList) {
+
+            //Creating images of characters both in first list and in the map area bio
+            for (var i = 0; i < charList.length; i++) {
+                var hero = d3.select("#heroList").append("g").attr("id", charList[i].shortName).classed("dim", true);
+
+                //Character history photos for the history section
+                hero.append("circle")
+                        .attr("class", charList[i].identity)
+                        .attr("id", charList[i].shortName + "_circle")
+                        .attr("cx", coordX + 30)
+                        .attr("cy", coordY + 30)
+                        .attr("r", 30)
+                        .style("fill", "none")
+                        .style("stroke-width", "3")
+                        .attr("display", "none");
+
+                hero.append("svg:image")
+                        .attr("xlink:href", "img/" + charList[i].img)
+                        .attr("width", 60)
+                        .attr("height", 60)
+                        .attr("x", coordX)
+                        .attr("y", coordY)
+//                        .append("svg:title")
+//                        .text(function(d) { return  charList[i].Name + " first appeared in " + charList[i].firstIssue; })
+                        .on("mouseover", function (d) {
+                            d3.select(this).transition()
+                                    .attr("width", 70)
+                                    .attr("height",70)
+                                    .attr("transform", "translate(" + -5 + "," + -5 + ")")
+                            d3.select(this.previousSibling)
+                                    .attr("display","inherit")
+                                    .transition().attr("r",35);
+
+                        })
+                        .on("mouseout", function () {
+                            d3.select(this).transition().attr("width", 60).attr("height", 60)
+                                    .attr("transform", "translate(" + 0  +"," + 0 + ")");
+                            d3.select(this.previousSibling)
+                                    .transition().attr("r",30).duration(1000).attr("display", "none");
+
+                        });
+                $("#" + charList[i].shortName).popover({
+                    content: charList[i].Name + " first appeared in " + charList[i].firstIssue,
+                    container:"body",
+                    html: true,
+                    trigger: "hover"
+                });
+
+                //Shift photos in the character history so they don't overlap
+                coordX = coordX + 70;
+                counter = counter + 1;
+                if (counter == 13) {
+                    counter = 0;
+                    coordX = 15;
+                    coordY = coordY + 70;
+
+                }
+                ;
+            }
+            ;
+        };
+
+        function updatePositions(charList) {
+            var counter = 0;
+            var xCoord = 15;
+            var yCoord = 15;
+
+            for (var i = 0; i < charList.length; i++) {
+                var tempChar = d3.select("#" + charList[i].shortName).select("image").transition().duration(1000).attr("x", xCoord).attr("y", yCoord);
+
+                d3.select("#" + charList[i].shortName).select("circle")
+                        .transition()
+                        .attr("cx", xCoord + 30)
+                        .attr("cy", yCoord +30);
+
+                xCoord = xCoord + 70;
+                counter = counter + 1;
+
+                if (counter == 13) {
+                    counter = 0;
+                    xCoord = 15;
+                    yCoord = yCoord + 70;
+                }
+            }
+            ;
+        };
+
+
+        var bubbleSlide = document.getElementById("slider");
+        //Character bubble slider
+        bubbleSlide.oninput = function () {
+
+            var curYear = this.value;
+            document.getElementById("year").innerHTML = curYear;
+            showResults();
+            d3.json("json/marvelHistory.json", function (error, d) {
+                var history = d;
+                if (error) {
+                    console.log(error);
+                }
+
+                for (var i = 0; i < history.length; i++) {
+                    if (curYear == history[i].Date) {
+                        document.getElementById("fact").innerHTML = history[i].event + " (" + history[i].Date + ")";
+                    }
+                }
+
+            });
+
+        };
+
+        var mapSlide = document.getElementById("sliderMap");
+
+        mapSlide.oninput = function(){
+            var curYear = this.value;
+            console.log(curYear);
+
+        d3.selectAll("circle.birthplace").remove();
+            if(mapSlide.value in charaByYears) {
+                charaByYears[curYear].forEach(function(char_id){
+                    var char = characters[char_id];
+                    var coord = projection([char.Coordinates[1], char.Coordinates[0]]);
+                    def = d3.select("#map defs #"+char_id+"-img");
+                    if (def.length > 0) {
+                        imgname =
+                        defs.append("pattern")
+                        .attr('id', char_id+"-img")
+                        .attr("height", "40")
+                        .attr("width", "40")
+                        .append("image")
+                        .attr('id', char_id+"-image")
+                        .attr('class', 'chara-img')
+                        .attr('xlink:href', 'img/'+char.img)
+                        .attr("height", "40")
+                        .attr("width", "40")
+                        .attr("x","0")
+                        .attr("y","0");
+                    }
+
+                    var point = map.append("circle")
+                            .attr("id", char_id+"-birthplace")
+                            .attr("cx", coord[0])
+                            .attr("cy", coord[1])
+                            .attr("r", 20)
+                            .attr("stroke", "white")
+                            .attr("stroke-width", 1)
+                            .attr("class", "birthplace")
+                            .style("fill", 'url(#'+char_id+'-img)').on('mouseenter', function() {
+                                this.parentElement.appendChild(this);
+                              });
+                    $("#"+char_id+"-birthplace").popover({
+                        content: '<table>'
+                            +'<tr><td>Name </td><td>'+characterInfo[char_id]['name']+'</td></tr>'
+                            +'<tr><td>Gender </td><td>'+characterInfo[char_id]['gender']+'</td></tr>'
+                            +'<tr><td>Height </td><td>'+characterInfo[char_id]['height']+'</td></tr>'
+                            +'<tr><td>Weight </td><td>'+characterInfo[char_id]['weight']+'</td></tr>'
+                            +'<tr><td>Name </td><td>'+characterInfo[char_id]['name']+'</td></tr>'
+                            +'<tr><td>Eyes </td><td>'+characterInfo[char_id]['eyes']+'</td></tr>'
+                            +'<tr><td>Hair </td><td>'+characterInfo[char_id]['hair']+'</td></tr>'
+                            +'<tr><td>Birth Place </td><td class="categoryInfo">'+characters[char_id]['Birthplace']+'</td></tr>'
+                            +'</table>',
+                        container:"body",
+                        html: true,
+                        trigger: "hover"
+                    });
+
+                });
+            }
+        };
+
+//        d3.select("#characterSelect").on("change", function () {
+//            var name = this.value;
+//            for (var i = 0; i < charList.length; i++) {
+//                if (name == charList[i].shortName) {
+//                    d3.select("#" + data[i].shortName + "_bio")
+//                            .classed("hidden", false);
+//                    d3.select("#" + data[i].shortName + "_line")
+//                            .classed("hidden", false);
+//                    d3.select("#" + data[i].shortName + "_circle")
+//                            .classed("dim", false);
+//
+//                }
+//                else {
+//                    d3.select("#" + data[i].shortName + "_bio")
+//                            .classed("hidden", true);
+//                    d3.select("#" + data[i].shortName + "_line")
+//                            .classed("hidden", true);
+//                    d3.select("#" + data[i].shortName + "_circle")
+//                            .classed("dim", true);
+//
+//                }
+//            }
+//            ;
+//
+//        });
+
+
+        //Creates a filter for the character list based on checkboxes
+        d3.selectAll(".filter").on("change", function () {
+            var type = this.value;
+
+            if (!this.checked) {
+                activeFilters.push(type);
+            }
+
+            if (this.checked) {
+                var i = activeFilters.indexOf(this.value);
+                if (i != -1) {
+                    activeFilters.splice(i, 1);
+                }
+            }
+            showResults();
+
+        });
+
+
+        //Checking to make sure of the year that is inputed against the origin year of the character
+        var checkYear = function (character) {
+
+            if (slider.value >= character.originYear) {
+                return true;
+            }
+            else {
+                return false;
+            };
+        }
+
+        var filterResults = function(character){
+
+            if ( !checkYear(character) && activeFilters.length == 0)
+            {
+
+                return "false";
+            }
+            for (var i = 0; i < Object.keys(character).length; i++) {
+                for (var j = 0; j < activeFilters.length; j++) {
+                    if (
+                            !checkYear(character) || character.Gender == activeFilters[j] || character.identity == activeFilters[j]
+                    ) {
+                        return "true";
+                    }
+                }
+                ;
+            }
+            ;
+
+        };
+
+
+        var showResults = function () {
+
+            for (var i = 0; i < data.length; i++) {
+                if ((filterResults(data[i]))) {
+                    d3.select("#" + data[i].shortName)
+                            .classed("dim", true);
+
+                }
+                else {
+                    d3.select("#" + data[i].shortName)
+                            .classed("dim", false);
+                }
+            }
+            ;
+        };
+        d3.json("json/characters_info.json", function (error,
+            charInfo){
+            if (error) throw error;
+            charInfo.forEach(function(info){
+                characterInfo[info.shortname] = info;
+            });
+
+            //Starting Map Section
+            d3.json("world-50m.json", function (error, world) {
+                if (error) throw error;
+
+                map.insert("path", ".graticule")
+                        .datum(topojson.feature(world, world.objects.land))
+                        .attr("class", "land")
+                        .attr("d", path);
+
+                map.insert("path", ".graticule")
+                        .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+                        .attr("class", "boundary")
+                        .attr("d", path);
+
+                var populateMap = function() {
+                    var picLocation = 0;
+                    for (var i = 0; i < charList.length; i++) {
+                        var coord = projection([charList[i].Coordinates[1], charList[i].Coordinates[0]]);
+                        map.append("path")
+                                .attr("d",
+                                        "M 150 150 L 100 150" +
+                                        "L " + coord[0] + " " + coord[1])
+                                .attr("class", charList[i].Identity)
+                                .attr("id", charList[i].shortName + "_line")
+                                .attr("stroke-width", 2.5)
+                                .attr("stroke","white")
+                                .classed("hidden",true)
+                                .style("fill", "transparent");
+
+                        map.append("circle").attr("cx", coord[0])
+                                .attr("cy", coord[1])
+                                .attr("r", 4)
+                                .attr("class", charList[i].shortName + "_circle")
+                                .style("fill", "white")
+                                .attr("stroke", "white")
+                                .attr("stroke-width", 1)
+                                .classed("dim",true);
+
+
+                        //Bio picture for the bio dropdown area
+                        map.append("svg:image")
+                                .attr("xlink:href", "img/" + charList[i].img)
+                                .attr("id", charList[i].shortName + "_bio")
+                                .attr("width", 200)
+                                .attr("height", 200)
+                                .attr("x", 25)
+                                .attr("y", 50)
+                                .classed("hidden", true)
+                    }
+
+                };
+
+                //populateMap();
+
+            });
+        });
+
+    });
+
+    </script>
+
+</body>
+</html>
