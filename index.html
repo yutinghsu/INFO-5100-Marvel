@@ -41,7 +41,7 @@
         .wrapper {background: #f03138;}
         body { font-family: Boogaloo; }
         body h1 { font-family: Bangers; }
-        .header { height:350px; /*width:1280px; margin:50px;*/ margin-bottom:0px;border-bottom:1px dotted white;}
+        .header { height:250px; /*width:1280px; margin:50px;*/ margin-bottom:0px;border-bottom:1px dotted white;}
         .hidden {display:none;}
         #controls {/*width:250px;*/ position:relative; text-align:left; float:left; margin-left: 10px;}
         .heros {/*width: 800px;*/ /*position:relative;*/ float:left; /*margin-left:25px;*/}
@@ -85,7 +85,9 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
 #leading {position: relative; bottom: 50px; left:350px;}
 #teams {margin-top: 50px;}
 #teams img {width: 30px; height: 30px;}
-#teams img:hover {opacity:0.5;}
+#teams img:hover {opacity:0.5; cursor: pointer;}
+.movieCharacter {cursor: pointer;}
+
 
     </style>
 </head>
@@ -165,13 +167,12 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
 
     <div class="row map_section" style="text-align:center;">
         <h1 style="color:white; margin-top:25px; letter-spacing: 2px; margin-bottom:0px; /*margin-left:100px;*/margin-top:20px;font-weight:100; font-size:30px; padding-top:0px; ">
-            Character's Birth 
+            Character's Birth in <span id="curYear">1938</span> 
         </h1>
         <h3 style="color:white; letter-spacing: 2px; margin-bottom:0px; margin-top:0px;font-weight:100; font-style: italic; font-size:16px; padding-top:0px;" >
             Slide through the time-line to see when a character was created and their 'birthplace'. <br />( ● means real events)</h3>
 
         <div id="map" style="display:inline; position:relative;"></div>
-    
         <span style="color:white;height: 30px; margin-top: 10px; text-align: right;" class="col-xs-2">1938</span>
         <span class="col-xs-8">
         <input id="sliderMap" type="range" min="1938" max="2016" value="1938"/>
@@ -481,6 +482,7 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
 
         mapSlide.oninput = function(){
             updateMap(mapSlide.value);
+            $("#curYear").text(mapSlide.value);
         };
 
 
@@ -629,12 +631,13 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
 <div id="gross"></div>
 <div id="side">
   <div id="teams">
-    <div id="avengers" onclick="updateteammember(avengers)"> <img src="team/avengers.png" alt = "team logo1"/> </div>
-    <div id="avengers" onclick="updateteammember(spider)"><img src="team/spider.png" alt = "team logo2"/> </div>
-    <div id="fantastic4" onclick="updateteammember(fantastic4)"><img src="team/fantastic4.png" alt = "team logo3"/></div>
-    <div id="shield" onclick="updateteammember(shield)"><img src="team/shield.png" alt = "team logo4"/></div>
-    <div id="xmen" onclick="updateteammember(xmen)"><img src="team/XMen.png" alt = "team logo5"/></div>
-    <div id="guardians" onclick="updateteammember(guardians)"><img src="team/guardians.jpg" alt = "team logo6"/></div>
+    <div style="color: black;">Click the icons to change team list and hover on the characters' name to see their screen time in movies they involved in!</div>
+    <div id="avengers" onclick="updateteammember(avengers)"> <img src="team/avengers.png" alt = "team logo1"/><span>Avengers</span></div>
+    <div id="spider" onclick="updateteammember(spider)"><img src="team/spider.png" alt = "team logo2"/><span>Spider</span></div>
+    <div id="fantastic4" onclick="updateteammember(fantastic4)"><img src="team/fantastic4.png" alt = "team logo3"/><span>Fantastic 4</span></div>
+    <div id="shield" onclick="updateteammember(shield)"><img src="team/shield.png" alt = "team logo4"/><span>Shield</span></div>
+    <div id="xmen" onclick="updateteammember(xmen)"><img src="team/XMen.png" alt = "team logo5"/><span>X-men</span></div>
+    <div id="guardians" onclick="updateteammember(guardians)"><img src="team/guardians.jpg" alt = "team logo6"/><span>Guardians</span></div>
   </div>
   <div id="memberlist"></div>
 </div>
@@ -826,6 +829,13 @@ d3.csv("movies.csv", function(error, data) {
   .domain([0, d3.max(data, function (d) { return (d.Opening * (d["Adjusted Gross"]/d["Unadjusted Gross"])); }) ])
   .range([4,40]);
 
+  gross.append("circle").attr("cx",padding+50).attr("cy",padding/2).attr("r", rScale(10000000)).style("stroke-width","2").style("fill","transparent").style("stroke","black");
+  gross.append("text").attr("x",padding+35).attr("y",padding/2 - 5).text("10M");
+  gross.append("circle").attr("cx",padding+50).attr("cy",padding/2).attr("r", rScale(200000000)).style("stroke-width","2").style("fill","transparent").style("stroke","black");
+    gross.append("text").attr("x",padding+10).attr("y",padding/2 - 40).text("Opening: 200M");
+
+    gross.append("text").attr("x",padding+10).attr("y",padding/2 +60).text("Hover over to see movies by studio!");
+
   // draw dots
   var dots = gross.selectAll(".dot")
                   .data(data)
@@ -956,10 +966,6 @@ d3.csv("movies.csv", function(error, data) {
     var screentimeScale = d3.scale.linear()
       .domain([-1,2])
       .range([0,1]);
-
-
-
-
   });
 
 
@@ -1024,6 +1030,8 @@ d3.csv("movies.csv", function(error, data) {
       });
 
 });
+
+updateteammember(avengers)
 
 function getTime(str){
   var min, sec;
