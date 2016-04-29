@@ -7,6 +7,7 @@
     <script src="http://d3js.org/topojson.v1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/staticData.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/styles.css" type="text/css">
     <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
@@ -15,85 +16,11 @@
     
     <title>INFO 5100 Project 2 </title>
     <style>
-        table {
-            border:1px black;
-        }
-        svg {background: transparent;}
-        .graticule {
-            fill: none;
-            stroke: #000;
-            stroke-opacity: .3;
-            stroke-width: .5px;
-        }
-        .boundary {
-            fill: none;
-            stroke: #000;
-            stroke-width: .5px;
-        }
-        .dim {opacity: .25;}
-        image {position:relative; float:left; clear:both;}
-        .Hero, .Villain {fill:none;}
-        .borderStroke {stroke:white; fill:none;}
-        .Hero {stroke:white;}
-        .Villain {stroke: black;}
-
-        html {font-family: 'Oswald', sans-serif; font-weight:100; background: #f03138;}
-        .wrapper {background: #f03138;}
         body { font-family: Boogaloo; }
         body h1 { font-family: Bangers; }
-        .header { height:250px; /*width:1280px; margin:50px;*/ margin-bottom:0px;border-bottom:1px dotted white;}
-        .hidden {display:none;}
-        #controls {/*width:250px;*/ position:relative; text-align:left; float:left; margin-left: 10px;}
-        .heros {/*width: 800px;*/ /*position:relative;*/ float:left; /*margin-left:25px;*/}
-        .row {/*width:1280px;*/ clear:both; display:block; color:green; min-height:100px;min-height:50px;}
-        .row:before, .row:after {display:table; content: "";}
-        h5 {color:white; font-weight:100; font-size:18px; margin-top:5px;}
-        ul > li {color:white; font-weight:100; font-size:15px;}
-        ul > li > input {position:relative; top:-2px;}
-        #year {font-size:3em; width:100px; margin-top:25px; font-weight:400; border-right:1px dotted white; margin-right:15px; padding-right:15px;}
-        #fact {font-size:1.75em; max-width:750px; margin-top:25px;}
-        #year, #fact {color:white;
-            position: relative;
-            float: left;}
-        td {padding:5px;}
-
-        .map_section { background-color: #c1b198; }
-
-        /*body { font-family: Open Sans; width: 1280px;}*/
-svg { border: solid black 0px; }
-.axis path { fill: none; stroke: black; }
-.axis line { stroke: black; }
-.axis text { font-size: 12pt; }
-.tooltip {
-  position: absolute;
-  width: 200px;
-  height: auto;
-  pointer-events: none;
-  color: black;
-  background-color: rgba(255,255,255,0.8);
-  padding: 10px;
-
-}
-.label { font-weight: bold; }
-circle { stroke-width:3px; stroke-opacity: 0.3; }
-#gross svg {float: left;}
-.poster img {
-    width: 150px;
-    float: left;
-    padding: 0px 15px 15px 0px;
-}
-#leading {position: relative; bottom: 50px; left:350px;}
-#teams {margin-top: 50px;}
-#teams img {width: 30px; height: 30px;}
-#teams img:hover {opacity:0.5; cursor: pointer;}
-.movieCharacter {cursor: pointer;}
-
-
     </style>
 </head>
 <body>
-
-
 <div class="wrapper container-fluid">
     <div class="header">
         <div style="position: relative; float:left; width:50%;">
@@ -105,15 +32,13 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
         </div>
     </div>
 
-
-    
-    <div class="row" style="min-height:100px;/* margin-left:100px;*/ text-align:left !important;">
+    <div class="row" style="min-height:100px; text-align:left!important;">
         <p style="width:900px; margin:0 auto;">
             <span id="year">1938</span>
             <span id="fact"></span>
         </p>
     </div>
-    <div class="row" style="margin-top:25px; /*margin-left:100px; width:1280px;*/">
+    <div class="row" style="margin-top:25px;">
         <span style="color:white; height: 50px; margin-top: 10px; text-align: right;" class="col-xs-1">1938 &nbsp;</span>
         <span class="col-xs-10">
             <input id="slider" type="range" min="1938" max="2016" value="1938"/>
@@ -192,7 +117,6 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
     var characters = {};
     var charaByYears = {};
     var characterInfo = {};
-    var events = {};
 
     // Pulling data from the data.json file here.
     d3.json("json/data.json", function(error, data) {
@@ -247,9 +171,7 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
                 var y = b[key];
                 return ((x < y) ? -1 : ((x > y) ? 1 : 0));
             });
-
-        };
-
+        }
 
         d3.select("#sortFilter").on("change", function () {
             sortFilter = document.getElementById("sortFilter").value;
@@ -271,7 +193,7 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
                 array[j] = temp;
             }
             return array;
-        };
+        }
 
         //Creating images of characters in first list
         for (var i = 0; i < charList.length; i++) {
@@ -377,8 +299,7 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
                     yCoord = yCoord + 70;
                 }
             }
-            ;
-        };
+        }
 
 
         var bubbleSlide = document.getElementById("slider");
@@ -405,11 +326,11 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
         };
 
         var mapSlide = document.getElementById("sliderMap");
+        // add character were born in curYear
         var updateMap = function(curYear){
+            //remove previous events and append events (if any)
             d3.selectAll("circle.event").remove();
-            
             if(curYear in events) {
-                
                 e = events[mapSlide.value];
                 e.places.forEach(function(place_coord){
                 var coord = projection([place_coord[1], place_coord[0]]);
@@ -425,7 +346,7 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
                 
             }
 
-
+            // append characters' image on map
             d3.selectAll("circle.birthplace").remove();
             if(curYear in charaByYears) {
                 charaByYears[curYear].forEach(function(char_id){
@@ -465,9 +386,9 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
                             +'<table>'
                             +'<tr><td>Name </td><td>'+characterInfo[char_id].name+'</td></tr>'
                             +'<tr><td>Gender </td><td>'+characterInfo[char_id].gender+'</td></tr>'
-                            +'<tr><td>Height </td><td>'+characterInfo[char_id].height+'</td></tr>'
-                            +'<tr><td>Weight </td><td>'+characterInfo[char_id].weight+'</td></tr>'
-                            +'<tr><td>Eyes </td><td>'+characterInfo[char_id].eyes+'</td></tr>'
+                            +'<tr><td>Height </td><td>'+characterInfo[char_id].height+'</td></tr>'+
+                            '<tr><td>Weight </td><td>'+characterInfo[char_id].weight+'</td></tr>'+
+                            '<tr><td>Eyes </td><td>'+characterInfo[char_id].eyes+'</td></tr>'
                             +'<tr><td>Hair </td><td>'+characterInfo[char_id].hair+'</td></tr>'
                             +'<tr><td>Birth Place </td><td class="categoryInfo">'+characters[char_id]['Birthplace']+'</td></tr>'
                             +'</table>',
@@ -475,16 +396,15 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
                         html: true,
                         trigger: "hover"
                     });
-
                 });
             }
         };
 
+        // update map data when user move map slider
         mapSlide.oninput = function(){
             updateMap(mapSlide.value);
             $("#curYear").text(mapSlide.value);
         };
-
 
         //Creates a filter for the character list based on checkboxes
         d3.selectAll(".filter").on("change", function () {
@@ -547,21 +467,8 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
             }
         };
 
-                var sliderwidth = d3.select("#sliderMap").node().getBoundingClientRect().width;
+        var sliderwidth = d3.select("#sliderMap").node().getBoundingClientRect().width;
         var time_scale = d3.scale.linear().domain([1938, 2016]).range([ 0, sliderwidth]);
-
-        events = {  
-                "1939": {"places": [[41.57, 12.30],[9.145000, 40.489673],[51.165691, 10.451526]], "eventname": "WORLD WAR II", "img_src":"http://vignette3.wikia.nocookie.net/marveldatabase/images/9/9d/World_War_II_001.jpg/revision/latest/scale-to-width-down/200?cb=20090825012758"},
-                "1940": {"places": [[35.861660, 104.195397],[36.204824, 138.252924],[47.516231, 14.550072],[51.165691, 10.451526],[41.871940, 12.56738],[44.980733, 20.169453],[56.263920, 9.501785],[60.472024, 8.468946] ], "eventname": "WORLD WAR II","img_src":"http://vignette3.wikia.nocookie.net/marveldatabase/images/9/9d/World_War_II_001.jpg/revision/latest/scale-to-width-down/200?cb=20090825012758"},
-                "1941": {"places": [[23.416203, 25.66283],[42.733883, 25.48583],[47.162494, 19.503304],[51.220643, 51.363519],[55.755826, 37.6173],[21.344507, -157.974891],[12.879721, 121.774017],[14.058324, 108.277199],[1.352083, 103.819836]], "eventname": "WORLD WAR II","img_src":"http://vignette3.wikia.nocookie.net/marveldatabase/images/9/9d/World_War_II_001.jpg/revision/latest/scale-to-width-down/200?cb=20090825012758"}, 
-                "1942": {"places": [[45.813398, 15.964656],[28.207217, -177.373493],[48.708048, 44.513303],[-9.645710, 160.156194],[28.033886, 1.659626],[33.886917, 9.537499],[31.869706, 115.747628],[45.943161, 24.96676]], "eventname": "WORLD WAR II"},
-                "1943": {"places": [[33.886917, 9.537499],[37.599994, 14.015356],[51.709196, 36.156224],[42.017239, 14.859782],[26.142036, -81.79481]], "eventname": "WORLD WAR II","img_src":"http://vignette3.wikia.nocookie.net/marveldatabase/images/9/9d/World_War_II_001.jpg/revision/latest/scale-to-width-down/200?cb=20090825012758"},
-                "1944": {"places": [[41.449596, 12.619725],[37.981835, -80.423567],[48.879870, 0.171253],[53.709807, 27.953389],[48.856614, 2.352222],[43.710173, 7.261953],[12.879721, 121.774017],[50.503887, 4.469936]], "eventname": "WORLD WAR II","img_src":"http://vignette3.wikia.nocookie.net/marveldatabase/images/9/9d/World_War_II_001.jpg/revision/latest/scale-to-width-down/200?cb=20090825012758"},
-                "1945": {"places": [[50.573280, 7.238553],[52.520007, 13.404954],[45.815011, 15.981919],[47.516231, 14.550072],[41.871940, 12.56738],[26.212401, 127.680932],[34.385203, 132.455293],[19.445411, -99.089734]], "eventname": "WORLD WAR II","img_src":"http://vignette3.wikia.nocookie.net/marveldatabase/images/9/9d/World_War_II_001.jpg/revision/latest/scale-to-width-down/200?cb=20090825012758"},
-                "1960": {"places":[[31.596640, 31.107178], [37.090240, -95.712891]], "eventname": "The Space Race", "img_src":"http://x.annihil.us/u/prod/marvel/i/mg/6/20/519b7424af23c/portrait_incredible.jpg"},
-                "1971": {"places": [[40.7891, -73.1350]], "eventname":"Drug Abuse","img_src": "http://i.annihil.us/u/prod/marvel/i/mg/e/40/4bc33acb2b5e0/portrait_incredible.jpg"},
-                "2001": {"places":[[40.783060, -73.971249],[38.881621, -77.090981]], "eventname":"9/11", "img_src":"http://cdn.bleedingcool.net/wp-content/uploads/2013/06/image80.jpg?f6a06b"}
-            };
 
         var eventssvg = d3.select("#eventtimeline").append("svg")
                         .attr("width", sliderwidth)
@@ -592,6 +499,7 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
 
         }
 
+        // Reading characters' information
         d3.json("json/characters_info.json", function (error,
             charInfo){
             if (error) throw error;
@@ -618,14 +526,9 @@ circle { stroke-width:3px; stroke-opacity: 0.3; }
 
             updateMap(sliderMap.value);
         });
-
-
-
-
-
     });
-
     </script>
+
 <div id="movie_section" style="background-color: white;" class="row">
     <h1 style="text-align: center; color: #316a95;">Who is the most popular superhero in cinematic universe?</h1>
 <div id="gross"></div>
@@ -665,13 +568,6 @@ var generateMovieID = function(moviename){
   console.log(moviename);
   return moviename.toUpperCase().split(' ').join('_');
 };
-
-  var avengers = ["Captain America", "Tony Stark", "Thor", "Dr. Bruce Banner", "Natasha Romanoff", "Hawkeye"];
-  var shield = ["Nick Fury", "Phil Coulson", "Maria Hill", "Peggy Carter"];
-  var xmen = ["Professor Charles Xavier", "Erik Lehnsherr", "Raven Darkholme", "Jean Grey", "Dr. Henry 'Hank' McCoy", "Logan", "Wade Wilson"];
-  var fantastic4 = ["Mr. Fantastic", "Invisible Woman", "Human Torch", "Thing"];
-  var spider = ["Peter Parker"];
-  var guardians = ["Peter Quill", "Gamora", "Rocket Raccoon", "Drax the Destroyer", "Groot"];
 
 var updateteammember = function (teamname){
     var list = "";

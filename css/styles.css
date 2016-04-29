@@ -87,118 +87,73 @@ input[type=range]:focus::-ms-fill-upper {
     background: #367ebd;
 }
 
-/*input[type=range] {*/
-/*!*removes default webkit styles*!*/
-/*-webkit-appearance: none;*/
+        .map_section { background-color: #c1b198; }
 
-/*!*fix for FF unable to apply focus style bug *!*/
-/*border: 1px solid white;*/
+        /*body { font-family: Open Sans; width: 1280px;}*/
+svg { border: solid black 0px; }
+.axis path { fill: none; stroke: black; }
+.axis line { stroke: black; }
+.axis text { font-size: 12pt; }
+.tooltip {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  pointer-events: none;
+  color: black;
+  background-color: rgba(255,255,255,0.8);
+  padding: 10px;
 
-/*!*required for proper track sizing in FF*!*/
-/*width: 300px;*/
-/*}*/
-/*input[type=range]::-webkit-slider-runnable-track {*/
-/*height: 5px;*/
-/*background: #ddd;*/
-/*border: none;*/
-/*border-radius: 3px;*/
-/*}*/
-/*input[type=range]::-webkit-slider-thumb {*/
-/*-webkit-appearance: none;*/
-/*border: none;*/
-/*height: 30px;*/
-/*width: 30px;*/
-/*background: goldenrod;*/
-/*margin-top: -4px;*/
-/*}*/
-/*input[type=range]:focus {*/
-/*outline: none;*/
-/*}*/
-/*input[type=range]:focus::-webkit-slider-runnable-track {*/
-/*background: #ccc;*/
-/*}*/
+}
+.label { font-weight: bold; }
+circle { stroke-width:3px; stroke-opacity: 0.3; }
+#gross svg {float: left;}
+.poster img {
+    width: 150px;
+    float: left;
+    padding: 0px 15px 15px 0px;
+}
+#leading {position: relative; bottom: 50px; left:350px;}
+#teams {margin-top: 50px;}
+#teams img {width: 30px; height: 30px;}
+#teams img:hover {opacity:0.5; cursor: pointer;}
+.movieCharacter {cursor: pointer;}
 
-/*input[type=range]::-moz-range-track {*/
-/*width: 300px;*/
-/*height: 5px;*/
-/*background: #ddd;*/
-/*border: none;*/
-/*border-radius: 3px;*/
-/*}*/
-/*input[type=range]::-moz-range-thumb {*/
-/*border: none;*/
-/*height: 16px;*/
-/*width: 16px;*/
-/*border-radius: 50%;*/
-/*background: goldenrod;*/
-/*}*/
+table {
+    border:1px black;
+}
+svg {background: transparent;}
+.graticule {
+    fill: none;
+    stroke: #000;
+    stroke-opacity: .3;
+    stroke-width: .5px;
+}
+.boundary {
+    fill: none;
+    stroke: #000;
+    stroke-width: .5px;
+}
+.dim {opacity: .25;}
+image {position:relative; float:left; clear:both;}
+.Hero, .Villain {fill:none;}
+.borderStroke {stroke:white; fill:none;}
+.Hero {stroke:white;}
+.Villain {stroke: black;}
 
-/*!*hide the outline behind the border*!*/
-/*input[type=range]:-moz-focusring{*/
-/*outline: 1px solid white;*/
-/*outline-offset: -1px;*/
-/*}*/
-
-/*input[type=range]::-ms-track {*/
-/*width: 300px;*/
-/*height: 5px;*/
-
-/*!*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead *!*/
-/*background: transparent;*/
-
-/*!*leave room for the larger thumb to overflow with a transparent border *!*/
-/*border-color: transparent;*/
-/*border-width: 6px 0;*/
-
-/*!*remove default tick marks*!*/
-/*color: transparent;*/
-/*}*/
-/*input[type=range]::-ms-fill-lower {*/
-/*background: #777;*/
-/*border-radius: 10px;*/
-/*}*/
-/*input[type=range]::-ms-fill-upper {*/
-/*background: #ddd;*/
-/*border-radius: 10px;*/
-/*}*/
-/*input[type=range]::-ms-thumb {*/
-/*border: none;*/
-/*height: 16px;*/
-/*width: 16px;*/
-/*border-radius: 50%;*/
-/*background: goldenrod;*/
-/*}*/
-/*input[type=range]:focus::-ms-fill-lower {*/
-/*background: #888;*/
-/*}*/
-/*input[type=range]:focus::-ms-fill-upper {*/
-/*background: #ccc;*/
-/*}*/
-
-/*output {*/
-/*position: absolute;*/
-/*background-image: linear-gradient(top, #444444, #999999);*/
-/*width: 40px;*/
-/*height: 30px;*/
-/*text-align: center;*/
-/*color: white;*/
-/*border-radius: 10px;*/
-/*display: inline-block;*/
-/*font: bold 15px/30px Georgia;*/
-/*bottom: 175%;*/
-/*left: 0;*/
-/*margin-left: -1%;*/
-/*}*/
-/*output:after {*/
-/*content: "";*/
-/*position: absolute;*/
-/*width: 0;*/
-/*height: 0;*/
-/*border-top: 10px solid #999999;*/
-/*border-left: 5px solid transparent;*/
-/*border-right: 5px solid transparent;*/
-/*top: 100%;*/
-/*left: 50%;*/
-/*margin-left: -5px;*/
-/*margin-top: -1px;*/
-/*}*/
+html {font-family: 'Oswald', sans-serif; font-weight:100; background: #f03138;}
+.wrapper {background: #f03138;}
+.header { height:250px; /*width:1280px; margin:50px;*/ margin-bottom:0px;border-bottom:1px dotted white;}
+.hidden {display:none;}
+#controls {/*width:250px;*/ position:relative; text-align:left; float:left; margin-left: 10px;}
+.heros {/*width: 800px;*/ /*position:relative;*/ float:left; /*margin-left:25px;*/}
+.row {/*width:1280px;*/ clear:both; display:block; color:green; min-height:100px;min-height:50px;}
+.row:before, .row:after {display:table; content: "";}
+h5 {color:white; font-weight:100; font-size:18px; margin-top:5px;}
+ul > li {color:white; font-weight:100; font-size:15px;}
+ul > li > input {position:relative; top:-2px;}
+#year {font-size:3em; width:100px; margin-top:25px; font-weight:400; border-right:1px dotted white; margin-right:15px; padding-right:15px;}
+#fact {font-size:1.75em; max-width:750px; margin-top:25px;}
+#year, #fact {color:white;
+    position: relative;
+    float: left;}
+td {padding:5px;}
